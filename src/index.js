@@ -24,7 +24,7 @@ mongoose
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.log(err.message));
 
-app.use(formData.parse());
+//app.use(formData.parse());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(bodyParser.json({ type: "application/*+json" }));
