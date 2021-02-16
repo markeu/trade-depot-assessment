@@ -6,7 +6,7 @@ const { Provider } = FetchContext;
 
 const FetchProvider = ({ children }) => {
   const authAxios = axios.create({
-    baseURL: "http://localhost:340"
+    baseURL: "http://localhost:3400"
   });
 
   return (
