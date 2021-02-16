@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const publicFetch = axios.create({
-    baseURL: "http://localhost:3400"
+    baseURL: "https://tradedepotapp.herokuapp.com"
 });
 
 export { publicFetch }
