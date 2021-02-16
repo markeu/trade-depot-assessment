@@ -76,7 +76,7 @@ const AvatarDropdown = () => {
       >
         <div className="px-3">
           <p className="text-white">
-            {authState.userInfo.data.first_name}
+            {authState.userInfo.data.name}
           </p>
         </div>
         <div className="mr-1 text-white">

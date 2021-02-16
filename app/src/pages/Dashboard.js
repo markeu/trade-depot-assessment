@@ -4,81 +4,48 @@ import React, {
   useEffect
 } from 'react';
 import PageTitle from '../components/common/PageTitle';
-// import DashboardMetric from './../components/DashboardMetric';
-// import Card from '../components/common/Card';
-// import {
-//   faChartArea,
-//   faDollarSign,
-//   faUserPlus
-// } from '@fortawesome/free-solid-svg-icons';
-// import { FetchContext } from '../context/FetchContext';
-// import { formatCurrency } from './../util';
-// import DashboardChart from './../components/DashboardChart';
+import Card from '../components/card'
+import { FetchContext } from '../context/FetchContext';
 
 const Dashboard = () => {
-  // const fetchContext = useContext(FetchContext);
-  // const [dashboardData, setDashboardData] = useState();
+  const fetchContext = useContext(FetchContext);
+  const [dashboardData, setDashboardData] = useState({
+    status: false,
+    message: '',
+    timestamp: '',
+    data: [],
+  });
 
-  // useEffect(() => {
-  //   const getDashboardData = async () => {
-  //     try {
-  //       const { data } = await fetchContext.authAxios.get(
-  //         'dashboard-data'
-  //       );
-  //       setDashboardData(data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
+  useEffect(() => {
+    const getDashboardData = async () => {
+      try {
+        const { data } = await fetchContext.authAxios.get(
+          'getProducts?location=French town'
+        );
+        setDashboardData(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  //   getDashboardData();
-  // }, [fetchContext]);
+    getDashboardData();
+  }, [fetchContext]);
 
+  //console.log({data: dashboardData.data[0]});
+dashboardData.data.forEach(e => console.log(e.geo_details))
   return (
     <>
-      <PageTitle title="Dashboard" />
-      {/* {dashboardData ? (
-        <>
-          <div className="mb-4 flex flex-col sm:flex-row">
-            <div className="w-full sm:w-1/3 sm:mr-2 mb-4 sm:mb-0">
-              <DashboardMetric
-                title="Sales Volume"
-                value={formatCurrency(
-                  dashboardData.salesVolume
-                )}
-                icon={faChartArea}
-              />
-            </div>
-            <div className="w-full sm:w-1/3 sm:ml-2 sm:mr-2 mb-4 sm:mb-0">
-              <DashboardMetric
-                title="New Customers"
-                value={dashboardData.newCustomers}
-                icon={faUserPlus}
-              />
-            </div>
-            <div className="w-full sm:w-1/3 sm:ml-2 mb-4 sm:mb-0">
-              <DashboardMetric
-                title="Refunds"
-                value={formatCurrency(
-                  dashboardData.refunds
-                )}
-                icon={faDollarSign}
-              />
-            </div>
-          </div>
-          <div className="w-full mt-4">
-            <Card>
-              {dashboardData && (
-                <DashboardChart
-                  salesData={dashboardData.graphData}
-                />
-              )}
-            </Card>
-          </div>
-        </>
+      <PageTitle title="Product Management Dashboard" />
+      <div className="flex   justify-between gap-6 flex-wrap">
+  {dashboardData ? (
+        dashboardData.data.map(e => (
+           <Card key={e._id} imageUrl={e.image_url} subject={e.geo_details} topic='useless' />
+        ))
       ) : (
         <p>Loading...</p>
-      )} */}
+      )}
+      </div>
+
     </>
   );
 };

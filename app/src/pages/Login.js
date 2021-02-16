@@ -37,7 +37,7 @@ const Login = () => {
         `login`,
         credentials
       );
-
+console.log(data, '========>');
       if (data.status === true) {
         authContext.setAuthState(data);
       }

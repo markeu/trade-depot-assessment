@@ -1,10 +1,6 @@
 const cloudinary = require('cloudinary');
 const Product = require("../models/product");
 
-
-
-
-
 const convertToObject = (str) => {
     var holder = str;
     var data = holder.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
@@ -18,6 +14,7 @@ const createProduct = async(body, file) => {
         api_secret: 'mEfdFc35cNJ52bkQVHPWiGl7VQw'
     });
     try {
+        console.log(file);
         const images = await cloudinary.uploader.upload(file.path);
         const image_url = images.url || 'image'
 

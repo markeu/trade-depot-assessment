@@ -38,7 +38,7 @@ const createuser = async(body) => {
 
             return {
                 status: true,
-                message: "Success",
+                message: "User created",
                 data: response
             };
         }
@@ -86,8 +86,9 @@ const signin = async(body) => {
 
         const data = {
             userId: checkEmail["id"],
-            first_name: checkEmail["first_name"],
-            last_name: checkEmail["last_name"],
+            name: checkEmail["first_name"] + " " +
+                checkEmail["last_name"],
+            email: checkEmail["email"],
             token,
         };
         return {
