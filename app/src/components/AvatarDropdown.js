@@ -74,14 +74,9 @@ const AvatarDropdown = () => {
         className="flex rounded-full items-center py-2 px-3 bg-gradient focus:outline-none shadow-lg"
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
-        <img
-          src={authState.userInfo.avatar || defaultAvatar}
-          className="rounded-full w-6 border-2 border-white"
-          alt="Avatar"
-        />
         <div className="px-3">
           <p className="text-white">
-            {authState.userInfo.firstName}
+            {authState.userInfo.data.first_name}
           </p>
         </div>
         <div className="mr-1 text-white">

@@ -45,12 +45,12 @@ const Home = () => {
           />
         </div>
         <div className="absolute left-0 top-0 mt-32 lg:mt-48 px-12 nato-sans">
-          <div className="w-full lg:w-2/3">
+          <div className="w-full lg:w-3/4">
             <h1 className="text-gray-200 text-2xl lg:text-6xl sm:text-5xl font-bold leading-tight">
-              Sales Data Management That Works For Your Team
+             Product Management
             </h1>
             <h2 className="text-gray-400 text-md sm:text-2xl sm:mt-10 mt-4">
-              Take the pain out of managing your sales data
+              Take the pain out of managing your sales
             </h2>
             <div className="mt-4 sm:mt-10 w-48">
               <GradientLink

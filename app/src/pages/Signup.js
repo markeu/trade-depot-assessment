@@ -15,10 +15,10 @@ import logo from './../images/logo.png';
 import { Redirect } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required(
+  first_name: Yup.string().required(
     'First name is required'
   ),
-  lastName: Yup.string().required('Last name is required'),
+  last_name: Yup.string().required('Last name is required'),
   email: Yup.string()
     .email('Invalid email')
     .required('Email is required'),
@@ -38,14 +38,13 @@ const Signup = () => {
     try {
       setLoginLoading(true);
       const { data } = await publicFetch.post(
-        `signup`,
+        `createUser`,
         credentials
       );
 
       authContext.setAuthState(data);
       setSignupSuccess(data.message);
       setSignupError('');
-
       setTimeout(() => {
         setRedirectOnLogin(true);
       }, 700);
@@ -59,7 +58,7 @@ const Signup = () => {
 
   return (
     <>
-      {redirectOnLogin && <Redirect to="/dashboard" />}
+      {redirectOnLogin && <Redirect to="/login" />}
       <section className="w-1/2 h-screen m-auto p-8 sm:pt-10">
         <GradientBar />
         <Card>
@@ -79,8 +78,8 @@ const Signup = () => {
               </div>
               <Formik
                 initialValues={{
-                  firstName: '',
-                  lastName: '',
+                  first_name: '',
+                  last_name: '',
                   email: '',
                   password: ''
                 }}
@@ -110,7 +109,7 @@ const Signup = () => {
                           </div>
                           <FormInput
                             ariaLabel="First Name"
-                            name="firstName"
+                            name="first_name"
                             type="text"
                             placeholder="First Name"
                           />
@@ -121,7 +120,7 @@ const Signup = () => {
                           </div>
                           <FormInput
                             ariaLabel="Last Name"
-                            name="lastName"
+                            name="last_name"
                             type="text"
                             placeholder="Last Name"
                           />
