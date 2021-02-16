@@ -1,17 +1,15 @@
-const path = require("path")
-var cloudinary = require('cloudinary');
-const fs = require("fs")
+const cloudinary = require('cloudinary');
 const Product = require("../models/product");
-const product = require("../models/product");
+
 
 
 
 
 const convertToObject = (str) => {
-    var json = str;
-    var newJson = json.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
-    newJson = newJson.replace(/'/g, '"');
-    return JSON.parse(newJson);
+    var holder = str;
+    var data = holder.replace(/([a-zA-Z0-9]+?):/g, '"$1":');
+    data = data.replace(/'/g, '"');
+    return JSON.parse(data);
 }
 const createProduct = async(body, file) => {
     cloudinary.config({
@@ -48,7 +46,7 @@ const createProduct = async(body, file) => {
 const getProductByLocation = (param) => {
     try {
         const { location } = param;
-        return product.find({
+        return Product.find({
             "geo_details.city": location
 
         }).then(res => {
