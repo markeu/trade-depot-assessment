@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const port = env.port;
 
 mongoose
-    .connect("mongodb://127.0.0.1/tradedepot", {
+    .connect("mongodb+srv://markeu:uzochukwu1!@cluster0.1kkhs.mongodb.net/tradedepot?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
