@@ -20,7 +20,7 @@ const Dashboard = () => {
     const getDashboardData = async () => {
       try {
         const { data } = await fetchContext.authAxios.get(
-          'getProducts?location=French town'
+          'getProducts'
         );
         setDashboardData(data);
       } catch (err) {
@@ -32,11 +32,11 @@ const Dashboard = () => {
   }, [fetchContext]);
 
   //console.log({data: dashboardData.data[0]});
-dashboardData.data.forEach(e => console.log(e.geo_details))
+// dashboardData.data.forEach(e => console.log(e.geo_details))
   return (
     <>
       <PageTitle title="Product Management Dashboard" />
-      <div className="flex   justify-between gap-6 flex-wrap">
+      <div className="flex justify-between gap-6 flex-wrap">
   {dashboardData ? (
         dashboardData.data.map(e => (
            <Card key={e._id} imageUrl={e.image_url} subject={e.geo_details} topic='useless' />

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
 import Card from '../components/common/Card';
 import Hyperlink from './../components/common/Hyperlink';
 import Label from './../components/common/Label';
@@ -21,7 +20,6 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const history = useHistory();
   const authContext = useContext(AuthContext);
   const [loginSuccess, setLoginSuccess] = useState();
   const [loginError, setLoginError] = useState();

@@ -1,86 +1,49 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useRef } from "react";
 import "./index.scss";
-import validateApplication from "./validateApplication"
 
 import { publicFetch } from '../../util/fetch';
 
 export default function Application() {
-  // const form = useRef(null)
+  const form = useRef(null);
+  const userInfo = localStorage.getItem('userInfo');
+  const userData = JSON.parse(userInfo)
   const defaultState = {
-  state: "",
-  street: "",
-  city: "",
-  image_url: "",
+    image_url: "",
+    state: "",
+    street: "",
+    city: "",
+    name: "",
+    email: "",
   };
 
-  // const notify = () =>
-  //   toast.success(
-  //     "Thank you for applying. kindly check your email for confirmation"
-  //   );
-
-  const [state, setState] = useState(defaultState);
+  const [state, setState] = useState({
+    image_url: "",
+    state: "",
+    street: "",
+    city: "",
+    name: userData.data.name,
+    email: userData.data.email,});
   const [errors, setErrors] = useState(defaultState);
   const [loading, setLoading] = useState(false);
-   //const [selectedFile, setSelectedFile] = useState('');
-  const history = useHistory();
-  const userInfo = localStorage.getItem('userInfo');
-const userData = JSON.parse(userInfo)
 
   const handleChange = (name, value) => {
-    // const { name, value } = target;
     setState({ ...state, [name]: value});
 
     if (errors[name]) setErrors({ ...errors, [name]: "" });
   };
 
-// console.log(state, 'the state of the form');
-
-
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      //  const errorsFields = validateApplication(state);
-      //       if (errorsFields) {
-        //         return setErrors({ ...errors, ...errorsFields });
-        //       }
-        setLoading(true)
-
-
-      const inputData = {
-        image_url: state.image_url,
-        geo_details: {
-            state: state.state,
-            street: state.city,
-            city: state.city
-        },
-        user_details: {
-          name:userData.data.name,
-          email:userData.data.email
-        }
-      }
-// console.log(inputData);
-    //console.log(inputData);
-      const datas = new FormData();
-      datas.append('image_url', inputData.image_url);
-      datas.append('geo_details', inputData.geo_details);
-      datas.append('user_details', inputData.user_details);
-
-      // console.log(datas);
+      setLoading(true)
+      const datas = new FormData(form.current);
       const { data } = await publicFetch.post(
       `createProduct`,
       datas
       );
-
       console.log(data, 'i got back from the backend')
-
       setState({ ...state, ...defaultState });
-      //notify();
-      history.push("/success",{
-        message:"You have Successfully applied to Decagon! Kindly check your email for confirmation"
-      })
+      window.location.reload();
     } catch (error) {
       setState({ ...state, ...defaultState });
       setErrors({ ...errors, ...error })
@@ -92,9 +55,36 @@ const userData = JSON.parse(userInfo)
       <main className="apply-main">
         <div className="hero"></div>
         <div className="content application-form">
-
-          <form onSubmit={handleSubmit}>
+          <form ref={form} onSubmit={handleSubmit}>
             <h1 className="form-title">Create Product Form</h1>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={state.name}
+                  onChange={e => handleChange('name', e.currentTarget.value)}
+                  style={{ border: errors.name && "1px solid #d07d7d" }}
+                />
+                {errors.name && (
+                  <p className="form-description: invalid input, object invaliderror">{errors.name}</p>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  value={state.email}
+                  onChange={e => handleChange('city', e.currentTarget.value)}
+                  style={{ border: errors.email && "1px solid #d07d7d" }}
+                />
+                {errors.email && (
+                  <p className="form-error">{errors.email}</p>
+                )}
+              </div>
+            </div>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="street">Street</label>
